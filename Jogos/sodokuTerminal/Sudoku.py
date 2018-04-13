@@ -40,16 +40,12 @@ class Sudoku(object):
         return lista
 
     def valida_nivel(self, valor):
-        if valor <= 1:
-            return 3
-        elif valor == 2:
-            return 4
-        elif valor == 3:
-            return 5
-        elif valor == 4:
-            return 6
+        if valor in [1, 2, 3, 4]:
+            valor += 2
+            return valor
         else:
-            return 1
+            valor = 2
+            return valor
 
     def trocar_lista(self, nova_lista):
         self.lista = nova_lista
@@ -78,9 +74,31 @@ class Sudoku(object):
                 print("+---+-----------------------+")
         print("+---+-----------------------+")
 
+    def valida_jogo(self):
+        for linha in self.lista_jogo:
+            for numero in range(1, 10):
+                if linha.count(numero) > 1:
+                    print("Jogo Invalido numero repetido.")
+                    return False
 
-lista = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-jogo = Sudoku(lista)
-jogo.criar(3)
-jogo.escoder()
-jogo.visualizar()
+        
+        for coluna in range(9):
+            lista = [self.lista_jogo[0][0],self.lista_jogo[1][0],self.lista_jogo[2][0],
+                     self.lista_jogo[3][0],self.lista_jogo[4][0],self.lista_jogo[5][0],
+                     self.lista_jogo[6][0],self.lista_jogo[7][0],self.lista_jogo[8][0],
+            ]
+            for numero in range(9):
+                if lista.count(numero) > 1:
+                    print("Jogo Invalido numero repetido.")
+                    return False
+            
+        for quadrado in range(9):
+            lista = [self.lista_jogo[0][0], self.lista_jogo[0][1], self.lista_jogo[0][2],
+                     self.lista_jogo[0][3], self.lista_jogo[0][4], self.lista_jogo[0][5],
+                     self.lista_jogo[0][6], self.lista_jogo[0][7], self.lista_jogo[0][8],
+            ]
+            for numero in range(9):
+                if lista.count(numero) > 1:
+                    print("Jogo Invalido numero repetido.")
+                    return False
+        return True
